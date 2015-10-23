@@ -19,40 +19,49 @@ class Node():
 
 class HopfieldNetwork():
     '''
-        *   pattern is an array of -1 or 1 e.g. [-1, 1, -1, 1, 1]
-        *   nodes states are either 1 or -1    
+        *   pattern is the set of states (1 or -1) that the network will remember
         *   weights is a NxN matrix [[node_1_weights], ..., [node_N_weights]]
     '''
 
+    
+
     def __init__(self, *pattern):
-        self.pattern = pattern  # list of nodes in network
-        
+
+        def sgn(num):
+            if num < 0:
+                return -1
+            return 1  # >= 0
+
+        self.state = map(lambda x: sgn(x), np.random.randint(-2, 2, size=len(pattern)))
+
         # conditions for Hopfield network
-        N = len(self.pattern)
+        N = len(pattern)
         self.weights = np.zeros(shape=(N,N), dtype=int)  # NxN matrix
         for i in range(N):
             for j in range(N):
                 if i == j:  # no pseudo edges
                     self.weights[i][i] = 0
                 else:  # symmetric weights and satisfy Hebbian rule
-                    self.weights[i][j] = self.pattern[i] * self.pattern[j]
-                    self.weights[j][i] = self.pattern[i] * self.pattern[j]
+                    self.weights[i][j] = pattern[i] * pattern[j]
+                    self.weights[j][i] = pattern[i] * pattern[j]
 
-    def __str__(self):
-        output_str = ''
-        for node in self.nodes:
-            output_str += str(node.state) + '  '
-        return output_str
+    # def __str__(self):
+    #     output_str = ''
+    #     for state in pattern:
+    #         output_str += str(state) + '  '
+    #     return output_str
 
     def run(*input_states):
-        # current states
+        
+        # initialise states
         input_states = []
         for i in range(len(input_states)):
             self.states.append(input_states[i].state)
 
-        assert len(input_states) == len(self.pattern)
+        # see how network evolves over generations
         for generation in range(100):
-            print 
+            print "Hey!"
+            next_generation()
 
 
     def next_generation():  # updates asynchronously
@@ -67,7 +76,7 @@ if __name__ == '__main__':
     node2 = Node(-1)
     node3 = Node(1)
 
-    hnet = HopfieldNetwork(node1, node2, node3)
+    hnet = HopfieldNetwork([1,1,1])
 
     print hnet
 
