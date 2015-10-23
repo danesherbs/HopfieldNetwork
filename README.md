@@ -10,8 +10,49 @@ For this Hopfield network, you can pass a pattern of any size
 
     python hopfield.py 1 -1 -1 1 1 -1
 
+Which would produce something like
+
+```
+RANDOM INITIAL STATE
+[1, 1, -1, 1, 1, -1]
+
+UPDATE NODE 0
+Weights:	[ 0 -1 -1  1  1 -1]
+Inputs:		[1, 1, -1, 1, 1, -1]
+Field:		1
+
+UPDATE NODE 1
+Weights:	[-1  0  1 -1 -1  1]
+Inputs:		[1, 1, -1, 1, 1, -1]
+Field:		-1
+
+UPDATE NODE 2
+Weights:	[-1  1  0 -1 -1  1]
+Inputs:		[1, -1, -1, 1, 1, -1]
+Field:		-1
+
+UPDATE NODE 3
+Weights:	[ 1 -1 -1  0  1 -1]
+Inputs:		[1, -1, -1, 1, 1, -1]
+Field:		1
+
+UPDATE NODE 4
+Weights:	[ 1 -1 -1  1  0 -1]
+Inputs:		[1, -1, -1, 1, 1, -1]
+Field:		1
+
+UPDATE NODE 5
+Weights:	[-1  1  1 -1 -1  0]
+Inputs:		[1, -1, -1, 1, 1, -1]
+Field:		-1
+END STATE:	[1, -1, -1, 1, 1, -1]
+
+END STATE
+[1, -1, -1, 1, 1, -1]
+```
+
 
 ##### The network will update itself and find itself attracted to the given pattern.
 
-Note that Hopfield networks are *sign blind* i.e. if [1, -1, 1] is an attracting fixed point, [-1, 1, 1] is too.
+Note that Hopfield networks are **sign blind** i.e. if [1, -1, 1] is an attracting fixed point, [-1, 1, 1] is too.
 
