@@ -1,4 +1,5 @@
 import numpy as np
+import sys
 
 class Node():
     '''
@@ -93,7 +94,7 @@ class HopfieldNetwork():
             nodes.append(Node(state))
         
         # see how network evolves over generations
-        print "INITIAL STATE"
+        print "RANDOM INITIAL STATE"
         print states
         for _ in xrange(500):
             if (states == self.pattern) or (states == [-x for x in self.pattern]):
@@ -108,7 +109,8 @@ class HopfieldNetwork():
         print
 
 if __name__ == '__main__':
-    hnet = HopfieldNetwork([1]*30)
+    pattern = map(int,sys.argv[1:])
+    hnet = HopfieldNetwork(pattern)
     hnet.run()
 
 
