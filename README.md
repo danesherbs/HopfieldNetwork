@@ -11,7 +11,7 @@ For this Hopfield network, you can pass a pattern of any size
     python hopfield.py 1 -1 -1 1 1 -1
 
 
-##### Watch the network update itself and find itself attracted to the given pattern.
+##### The network will update itself and find itself attracted to the given pattern.
 
 Note that Hopfield networks are *sign blind* i.e. if [1, -1, 1] is an attracting fixed point, [-1, 1, 1] is too.
 
