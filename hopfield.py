@@ -30,6 +30,7 @@ class HopfieldNetwork():
 
     def __init__(self, pattern):
 
+        self.pattern = pattern
         self.N = len(pattern)
 
         def sgn(num):
@@ -55,11 +56,31 @@ class HopfieldNetwork():
             return -1
         return 1  # >= 0
 
-    def next_generation(self, states, nodes):  # updates asynchronously
+    def asynchronous_update(self, states, nodes):  # updates asynchronously
+        print
+        print "NEW GENERATION"
         for node_num, node in enumerate(nodes):
-            print states
             node_weights = self.weights[node_num]
+            print "Weights:\t", node_weights
+            print "Inputs:\t\t", states
+            print "Field:\t\t", self.sgn(np.dot(node_weights, states))
             states[node_num] = nodes[node_num].output(node_weights, states)
+        print "END STATE:\t", states
+        return states, nodes
+
+    def synchronous_update(self, states, nodes):  # updates asynchronously
+        print
+        print "NEW GENERATION"
+        old_states = states[:]
+        for node_num, node in enumerate(nodes):
+            node_weights = self.weights[node_num]
+            print "Weights:\t", node_weights
+            print "State:\t\t", states
+            print "Old state:\t", old_states
+            print "Field:\t\t", self.sgn(np.dot(node_weights, old_states))
+            states[node_num] = nodes[node_num].output(node_weights, old_states)
+        print "END STATE:\t", states
+
         return states, nodes
 
     def run(self):
@@ -70,20 +91,27 @@ class HopfieldNetwork():
         nodes = []
         for state in states:
             nodes.append(Node(state))
-
-        # print "NODES: ",
-        # for node in nodes:
-        #     print node,
-        # print
         
         # see how network evolves over generations
-        for generation in range(5):
-            states, nodes = self.next_generation(states, nodes)
+
+        print "INITIAL STATE"
+        print states
+
+        generations = 0
+        for _ in xrange(500):
+            if (states == self.pattern) or (states == [-x for x in self.pattern]):
+                break  # reached fixed point
+            states, nodes = self.synchronous_update(states, nodes)
+            generations += 1
+
+        print
+        print "AFTER ", generations, " GENERATION(S)"
+        print states
+        print
 
 
 if __name__ == '__main__':
-    
-    hnet = HopfieldNetwork([1]*40)
+    hnet = HopfieldNetwork([1]*30)
     hnet.run()
 
 
