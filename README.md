@@ -10,7 +10,9 @@ For this Hopfield network, you can pass a pattern of any size
 
     python hopfield.py 1 -1 -1 1 1 -1
 
-Which would produce something like
+A random sequence of states will be generated. The network's job is to get from this sequence of states **to your pattern** (without looking at it -- *that would be cheating*!)
+
+The network will then update each node according to simple rules, and arrive at your pattern.
 
 ```
 RANDOM INITIAL STATE
@@ -52,7 +54,6 @@ END STATE
 ```
 
 
-##### The network will update itself and find itself attracted to the given pattern.
 
 Note that Hopfield networks are **sign blind** i.e. if [1, -1, 1] is an attracting fixed point, [-1, 1, 1] is too.
 
