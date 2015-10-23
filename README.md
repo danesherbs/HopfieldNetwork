@@ -55,5 +55,5 @@ END STATE
 
 
 
-Note that Hopfield networks are **sign blind** i.e. if [1, -1, 1] is an attracting fixed point, [-1, 1, 1] is too.
+Note that Hopfield networks are **sign blind** i.e. if [1, -1, 1] is an attracting fixed point, [-1, 1, -1] is too.
 
