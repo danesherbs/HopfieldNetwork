@@ -57,9 +57,9 @@ class HopfieldNetwork():
         return 1  # >= 0
 
     def asynchronous_update(self, states, nodes):  # updates asynchronously
-        print
-        print "NEW GENERATION"
         for node_num, node in enumerate(nodes):
+            print
+            print "UPDATE NODE", node_num
             node_weights = self.weights[node_num]
             print "Weights:\t", node_weights
             print "Inputs:\t\t", states
@@ -83,7 +83,7 @@ class HopfieldNetwork():
 
         return states, nodes
 
-    def run(self):
+    def run(self, method='asynchronously'):
         # generate a random array of states (size N)
         states = map(lambda x: self.sgn(x), np.random.randint(-2, 2, size=self.N))
 
@@ -93,22 +93,19 @@ class HopfieldNetwork():
             nodes.append(Node(state))
         
         # see how network evolves over generations
-
         print "INITIAL STATE"
         print states
-
-        generations = 0
         for _ in xrange(500):
             if (states == self.pattern) or (states == [-x for x in self.pattern]):
                 break  # reached fixed point
-            states, nodes = self.synchronous_update(states, nodes)
-            generations += 1
-
+            if method == 'asynchronously':
+                states, nodes = self.asynchronous_update(states, nodes)
+            else:
+                states, nodes = self.synchronous_update(states, nodes)
         print
-        print "AFTER ", generations, " GENERATION(S)"
+        print "END STATE"
         print states
         print
-
 
 if __name__ == '__main__':
     hnet = HopfieldNetwork([1]*30)
