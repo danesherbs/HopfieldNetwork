@@ -8,15 +8,10 @@ Patterns are a sequence of states (which only take the values +1 and -1). For ex
 
 For this Hopfield network, you can pass a pattern of any size
 
-    hop_net = HopfieldNetwork([1,-1,1,1,-1,-1])
+    python hopfield.py 1 -1 -1 1 1 -1
 
-then run it
-
-    hop_net.run()
 
 ##### Watch the network update itself and find itself attracted to the given pattern.
 
-By default, the Hopfield network will update it's state asynchronously. But you can change that
-
-    hop_net.run(method='synchronously')
+Note that Hopfield networks are *sign blind* i.e. if [1, -1, 1] is an attracting fixed point, [-1, 1, 1] is too.
 
