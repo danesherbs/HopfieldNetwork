@@ -69,7 +69,7 @@ class HopfieldNetwork():
         print "END STATE:\t", states
         return states, nodes
 
-    def synchronous_update(self, states, nodes):  # updates asynchronously
+    def synchronous_update(self, states, nodes):  # updates synchronously
         print
         print "NEW GENERATION"
         old_states = states[:]
